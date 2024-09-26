@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Botones con Imágenes a Pantalla Completa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Evita el desplazamiento horizontal */
+        }
+
+        #logo {
+            width: 150px;
+            position: absolute; /* Para que el logo esté a la izquierda */
+            top: 20px; /* Ajuste la posición desde la parte superior */
+            left: 20px; /* Alineación a la izquierda */
+        }
+
+        h1 {
+            font-size: 2.5rem; /* Ajuste el tamaño para dispositivos */
+            font-family: 'Century Gothic';
+            margin: 80px 0 20px; /* Ajuste el margen para separar el título del logo */
+        }
+
+        #searchBar {
+            margin: 20px auto;
+            padding: 10px;
+            font-size: 1.5rem; /* Ajuste el tamaño para dispositivos */
+            width: 80%; /* Aumenta el ancho en móviles */
+            border: 2px solid navy;
+            border-radius: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column; /* Cambia a columna */
+            align-items: center; /* Centra los botones */
+            margin: 20px 0;
+        }
+
+        .button {
+            background-color: #008cff;
+            color: black;
+            border: none;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1.5rem; /* Ajuste el tamaño para dispositivos */
+            width: 80%; /* Ajusta el ancho en dispositivos */
+            max-width: 300px; /* Ancho máximo */
+        }
+
+        .button:hover {
+            background-color: #004d4f;
+        }
+
+        .images-container {
+            display: none;
+            position: fixed; /* Cambia a fixed para que cubra toda la pantalla */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 10;
+            overflow-y: auto; /* Permite el desplazamiento vertical */
+        }
+
+        .images-container img {
+            width: 100%;
+            height: auto; /* Mantiene la proporción de la imagen */
+            display: block; /* Elimina el espacio entre imágenes */
+            margin: 0; /* Elimina márgenes entre imágenes */
+        }
+
+        .return-button {
+            position: fixed; /* Mantiene el botón fijo en la parte superior */
+            top: 20px; /* Ajuste de la posición en el centro de la pantalla */
+            left: 50%;
+            transform: translateX(-50%); /* Centra horizontalmente */
+            z-index: 20;
+            padding: 10px 20px;
+            font-size: 1.5rem; /* Ajuste el tamaño para dispositivos */
+            background-color: lightblue;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: none; /* Inicialmente oculto */
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>MC CONSULTORES AUDITORES & ABOGADOS</h1>
+    <img src="logomc.jpeg" alt="Logo" id="logo">
+
+    <input type="text" id="searchBar" placeholder="Buscar botón...">
+
+    <div id="initial-section" class="button-container">
+        <button id="btn-expenses-1" class="button" onclick="mostrarImagenes(1)">1</button>
+        <button id="btn-expenses-2" class="button" onclick="mostrarImagenes(2)">2</button>
+        <button id="btn-expenses-3" class="button" onclick="mostrarImagenes(3)">3</button>
+        <button id="btn-expenses-4" class="button" onclick="mostrarImagenes(4)">4</button>
+        <button id="btn-expenses-5" class="button" onclick="mostrarImagenes(5)">5</button>
+        <button id="btn-expenses-6" class="button" onclick="mostrarImagenes(6)">6</button>
+        <button id="btn-expenses-7" class="button" onclick="mostrarImagenes(7)">7</button>
+        <button id="btn-expenses-8" class="button" onclick="mostrarImagenes(8)">8</button>
+        <button id="btn-expenses-9" class="button" onclick="mostrarImagenes(9)">9</button>
+        <button id="btn-expenses-10" class="button" onclick="mostrarImagenes(10)">10</button>
+        <button id="btn-expenses-11" class="button" onclick="mostrarImagenes(11)">11</button>
+        <button id="btn-expenses-12" class="button" onclick="mostrarImagenes(12)">12</button>
+        <button id="btn-expenses-13" class="button" onclick="mostrarImagenes(13)">13</button>
+        <button id="btn-expenses-14" class="button" onclick="mostrarImagenes(14)">14</button>
+        <button id="btn-expenses-15" class="button" onclick="mostrarImagenes(15)">15</button>
+        <button id="btn-expenses-16" class="button" onclick="mostrarImagenes(16)">16</button>
+        <button id="btn-expenses-17" class="button" onclick="mostrarImagenes(17)">17</button>
+        <button id="btn-expenses-18" class="button" onclick="mostrarImagenes(18)">18</button>
+        <button id="btn-expenses-19" class="button" onclick="mostrarImagenes(19)">19</button>
+        <button id="btn-expenses-20" class="button" onclick="mostrarImagenes(20)">20</button>
+    </div>
+
+    <div class="images-container" id="imagesContainer">
+        <img id="img1" src="" alt="Imagen 1">
+        <img id="img2" src="" alt="Imagen 2">
+        <img id="img3" src="" alt="Imagen 3">
+    </div>
+
+    <button class="return-button" id="returnButton" onclick="regresarPaginaPrincipal()">Regresar</button>
+
+    <script>
+        const buttonImages = {
+            1: ["1.png", "2.jpeg", "3.jpeg"],
+            2: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1B", "https://via.placeholder.com/1920x1080.png?text=Imagen+2B"],
+            3: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1C"],
+            4: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1D", "https://via.placeholder.com/1920x1080.png?text=Imagen+2D"],
+            5: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1E", "https://via.placeholder.com/1920x1080.png?text=Imagen+2E", "https://via.placeholder.com/1920x1080.png?text=Imagen+3E"],
+            6: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1F"],
+            7: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1G", "https://via.placeholder.com/1920x1080.png?text=Imagen+2G"],
+            8: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1H", "https://via.placeholder.com/1920x1080.png?text=Imagen+2H", "https://via.placeholder.com/1920x1080.png?text=Imagen+3H"],
+            9: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1I"],
+            10: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1J", "https://via.placeholder.com/1920x1080.png?text=Imagen+2J"],
+            11: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1K"],
+            12: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1L", "https://via.placeholder.com/1920x1080.png?text=Imagen+2L"],
+            13: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1M", "https://via.placeholder.com/1920x1080.png?text=Imagen+2M"],
+            14: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1N"],
+            15: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1O", "https://via.placeholder.com/1920x1080.png?text=Imagen+2O"],
+            16: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1P"],
+            17: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1Q", "https://via.placeholder.com/1920x1080.png?text=Imagen+2Q"],
+            18: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1R"],
+            19: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1S", "https://via.placeholder.com/1920x1080.png?text=Imagen+2S"],
+            20: ["https://via.placeholder.com/1920x1080.png?text=Imagen+1T"]
+        };
+
+        function mostrarImagenes(buttonNumber) {
+            const imagesContainer = document.getElementById('imagesContainer');
+            const img1 = document.getElementById('img1');
+            const img2 = document.getElementById('img2');
+            const img3 = document.getElementById('img3');
+            const returnButton = document.getElementById('returnButton');
+
+            const images = buttonImages[buttonNumber];
+            img1.src = images[0] || "";
+            img2.src = images[1] || "";
+            img3.src = images[2] || "";
+
+            imagesContainer.style.display = 'block';
+            returnButton.style.display = 'block';
+        }
+
+        function regresarPaginaPrincipal() {
+            const imagesContainer = document.getElementById('imagesContainer');
+            const returnButton = document.getElementById('returnButton');
+            imagesContainer.style.display = 'none';
+            returnButton.style.display = 'none';
+        }
+
+        // Filtrado de botones
+        document.getElementById("searchBar").addEventListener("input", function() {
+            const filter = this.value.toLowerCase();
+            const buttons = document.querySelectorAll(".button");
+            buttons.forEach(button => {
+                const text = button.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    button.style.display = "";
+                } else {
+                    button.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
